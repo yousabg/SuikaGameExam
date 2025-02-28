@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: 1684426113677515168}
   m_Layer: 0
   m_Name: BlueSwirl_0
-  m_TagString: Untagged
+  m_TagString: small
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -169,3 +169,4 @@ MonoBehaviour:
   minX: -2
   maxX: 3.2
   spawnY: 3.67
+  ballFell: 0

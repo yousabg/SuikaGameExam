@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class ClawMove : MonoBehaviour
 {
@@ -8,9 +9,11 @@ public class ClawMove : MonoBehaviour
     public float minX;
     public float maxX;
     public GameObject candyPrefab;
-    public float candyX;
     public float candyY;
-    public GameObject currentCandy;
+    private float candiesSpawned = 0f;
+    public TextMeshProUGUI candyCounter;
+    public GameObject[] ballVariants;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -22,12 +25,10 @@ public class ClawMove : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            if (currentCandy == null)
-            {
-                currentCandy = Instantiate(candyPrefab, new Vector3(candyX, candyY, 0), Quaternion.identity);
-                Rigidbody2D rb = currentCandy.GetComponent<Rigidbody2D>();
-                rb.gravityScale = 0f;
-            }
+
+            Instantiate(candyPrefab, new Vector3(mousePosG.x, candyY, 0), Quaternion.identity);
+            candiesSpawned++;
+            candyCounter.SetText(candiesSpawned + " candies spawned");
         }
     }
 
@@ -38,5 +39,20 @@ public class ClawMove : MonoBehaviour
         {
             transform.position = new Vector3(mousePosG.x, spawnY, transform.position.z);
         }
+    }
+
+    public GameObject mergeBall(GameObject ball, Vector3 spawnPos)
+    {
+        for (int i = 0; i < ballVariants.Length; i++)
+        {
+            if (ball.CompareTag(ballVariants[i].tag))
+            {
+                if (i < ballVariants.Length-1)
+                {
+                    return ballVariants[i + 1];
+                }
+            }
+        }
+        return null;
     }
 }
